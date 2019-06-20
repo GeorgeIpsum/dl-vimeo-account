@@ -1,0 +1,30 @@
+{
+  "name": "dl-vimeo-account",
+  "version": "1.0.0",
+  "description": "npm utility that downloads all source files from a vimeo account with a provided vimeo api access token",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeorgeIpsum/dl-vimeo-account.git"
+  },
+  "keywords": [
+    "vimeo"
+  ],
+  "author": "Ibrahim Saberi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GeorgeIpsum/dl-vimeo-account/issues"
+  },
+  "homepage": "https://github.com/GeorgeIpsum/dl-vimeo-account#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "figlet": "^1.2.3",
+    "inquirer": "^6.4.0",
+    "shelljs": "^0.8.3",
+    "vimeo": "^2.1.1"
+  }
+}
