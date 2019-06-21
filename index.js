@@ -5,7 +5,6 @@ const fs = require("fs")
 const path = require("path")
 const chalk = require("chalk")
 const figlet = require("figlet")
-const shell = require("shelljs")
 const Spinner = require("cli-spinner").Spinner
 const axios = require("axios")
 const Vimeo = require("vimeo").Vimeo
