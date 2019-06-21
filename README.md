@@ -1,5 +1,5 @@
 # dl-vimeo-account
-## A node script that downloads all video files (highest transcoded quality) from your vimeo account
+## A node script that downloads all video files (highest transcoded quality[*](#What-EXACTLY-is-being-downloaded)) from your vimeo account
 
 Targets Vimeo API version 3.2
 
