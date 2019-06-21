@@ -44,7 +44,7 @@ Also, it's unclear whether QHD (aka 2K or 1440P) or UHD (4K or 2160P) videos are
 
 ### What? Why wouldn't you download the source video when possible?
 
-Because I made this for _me_ and I already have all of my source videos.
+Because I made this for [_me_](./assets/me.png) and I already have all of my source videos.
 
 In reality I didn't want to deal with the edge case of source files being corrupted or missing, and all of my source files were at most 1080P, so the Vimeo transcoded versions always worked for me.
 
