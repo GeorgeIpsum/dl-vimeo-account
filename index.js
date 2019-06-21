@@ -177,8 +177,8 @@ const downloadFiles = () => {
 }
 
 const dl = async (link,filepath,filename) => {
+  let filesJson = require(path.resolve(__dirname,"files.json"))
   if(link) {
-    let filesJson = require(path.resolve(__dirname,"files.json"))
     const writer = fs.createWriteStream(path.resolve(__dirname,filepath,filename))
     const response = await axios(
       {
