@@ -17,7 +17,7 @@ Anyone with a Vimeo business account with >20 videos who needs to download all o
 
 __NOTE: If you don't have a Vimeo business account I don't believe you can use this. Vimeo only gives download link accessibility via the Vimeo API to Business/PRO accounts as far as I know.__ (please let me know if this isn't true, or if there's a way around this limitation)
 
-#### How to use:
+### How to use:
 
 * Clone this, download this, or (__if you're a heathen__) open up your favorite text editor and rewrite/ copy each file over to the same directory
 * Do _not_ look too closely at `index.js`. It's Really Not Good Programming and half the time I spent making this went into making that gif in the readme look _real nice_.
