@@ -180,39 +180,57 @@ const dl = async (link,filepath,filename) => {
   let filesJson = require(path.resolve(__dirname,"files.json"))
   if(link) {
     const writer = fs.createWriteStream(path.resolve(__dirname,filepath,filename))
-    const response = await axios(
-      {
-        url:link,
-        method:'GET',
-        responseType:'stream'
-      }
-    )
-
-    spinner.isSpinning() ? null : spinner.start()
-    response.data.on('data', (data) => {
-      TOTALBYTESDOWNLOADED += Buffer.byteLength(data)
-      const progress = 3*Math.round(100*(TOTALBYTESDOWNLOADED/TOTALSIZE))/10
-      spinner.setSpinnerTitle(`%s Downloaded ${TOTALFILESDOWNLOADED}/${TOTALFILES} FILES | ${Math.round(10*TOTALBYTESDOWNLOADED/(1024*1024*1024))/10}GB/${Math.round(10*TOTALSIZE/(1024*1024*1024))/10}GB |${"=".repeat(Math.round(progress))}${"-".repeat(Math.round(30-progress))}|`)
-    })
-    response.data.on('end', ()=> {
+    try {
+      const response = await axios(
+        {
+          url:link,
+          method:'GET',
+          responseType:'stream'
+        }
+      )
+  
+      spinner.isSpinning() ? null : spinner.start()
+      response.data.on('data', (data) => {
+        TOTALBYTESDOWNLOADED += Buffer.byteLength(data)
+        const progress = 3*Math.round(100*(TOTALBYTESDOWNLOADED/TOTALSIZE))/10
+        spinner.setSpinnerTitle(`%s Downloaded ${TOTALFILESDOWNLOADED}/${TOTALFILES} FILES | ${Math.round(10*TOTALBYTESDOWNLOADED/(1024*1024*1024))/10}GB/${Math.round(10*TOTALSIZE/(1024*1024*1024))/10}GB |${"=".repeat(Math.round(progress))}${"-".repeat(Math.round(30-progress))}|`)
+      })
+      response.data.on('end', () => {
+        TOTALFILESDOWNLOADED++
+        filesJson.TOTALFILESDOWNLOADED = TOTALFILESDOWNLOADED
+        filesJson.TOTALBYTESDOWNLOADED = TOTALBYTESDOWNLOADED
+        filesJson = JSON.stringify(filesJson, null, 2)
+        fs.writeFile('files.json',filesJson, (err) => {
+          if(err) throw err
+          if(TOTALFILESDOWNLOADED==TOTALFILES) {
+            finish()
+          } else {
+            dl(FILES[TOTALFILESDOWNLOADED].link,FILEPATH,FILES[TOTALFILESDOWNLOADED].filename)
+          }
+        })
+      })
+      response.data.on('error',(error) => {
+        console.log(error)
+      })
+      response.data.pipe(writer)
+    } catch(error) {
+      fs.open(LOGPATH,'a',777,(e,id) => {
+        fs.write(id, `Error downloading file with uri ${FILES[TOTALFILESDOWNLOADED].uri}, http request returned with status code ${error.response.status}\n`,null,'utf8',() => {
+          fs.close(id, () => {
+            console.log("")
+            console.log(`Error downloading file with uri ${FILES[TOTALFILESDOWNLOADED].uri}, http request returned with status code ${error.response.status}`)
+          })
+        })
+      })
       TOTALFILESDOWNLOADED++
       filesJson.TOTALFILESDOWNLOADED = TOTALFILESDOWNLOADED
-      filesJson.TOTALBYTESDOWNLOADED = TOTALBYTESDOWNLOADED
-      if(TOTALFILESDOWNLOADED==TOTALFILES) {
-        filesJson = JSON.stringify(filesJson, null, 2)
-        fs.writeFile('files.json',filesJson, (err) => {
-          if(err) throw err
-          finish()
-        })
-      } else {
-        filesJson = JSON.stringify(filesJson, null, 2)
-        fs.writeFile('files.json',filesJson, (err) => {
-          if(err) throw err
-          dl(FILES[TOTALFILESDOWNLOADED].link,FILEPATH,FILES[TOTALFILESDOWNLOADED].filename)
-        })
-      }
-    })
-    response.data.pipe(writer)
+      filesJson = JSON.stringify(filesJson, null, 2)
+      fs.writeFile('files.json',filesJson, (err) => {
+        if(err) throw err
+        dl(FILES[TOTALFILESDOWNLOADED].link,FILEPATH,FILES[TOTALFILESDOWNLOADED].filename)
+      })
+    }
+
   
     return new Promise((resolve,reject) => {
       writer.on('finish', resolve)
@@ -230,8 +248,10 @@ const dl = async (link,filepath,filename) => {
     TOTALFILESDOWNLOADED++
     filesJson.TOTALFILESDOWNLOADED = TOTALFILESDOWNLOADED
     filesJson = JSON.stringify(filesJson, null, 2)
-    fs.writeFile('files.json',filesJson, (err) => {if(err) throw err})
-    dl(FILES[TOTALFILESDOWNLOADED].link,FILEPATH,FILES[TOTALFILESDOWNLOADED].filename)
+    fs.writeFile('files.json',filesJson, (err) => {
+      if(err) throw err
+      dl(FILES[TOTALFILESDOWNLOADED].link,FILEPATH,FILES[TOTALFILESDOWNLOADED].filename)
+    })
   }
 }
 
