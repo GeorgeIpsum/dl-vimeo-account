@@ -56,7 +56,9 @@ I needed the transcoded versions that are on Vimeo as well because of reasons.
 
 I know! It sucks! Especially that third situation if you have, say, __Literally Five Thousand Videos To Download__.
 
-![Literally Over Four Thousand Nine Hundred Ninety Nine Videos.png_yuge](./assets/its-over-4999.png)
+![AHHHHHHHHHHHHHHHHHHHHHHHHH.png_yuge](./assets/its-over-4999.png)
+
+> me, idiot, sleep deprived: oh! *wraps this edge case in a try catch statement and goes to bed*
 
 In the former 2 cases, create an issue with whatever output node spits out and I'll look into it. In the latter case, still create an issue to let me know what happened, but the script will also save all of your file data and keep note of how far you are in the process, so if you rerun the script you _should_ in theory be able to just resume the download process. Let me know if that isn't the case.
 
