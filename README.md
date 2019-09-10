@@ -30,7 +30,7 @@ __NOTE: If you don't have a Vimeo business account I don't believe you can use t
 * You'll be asked for a filepath to save the videos and log output. If you don't specify an absolute file path (i.e. with a leading `/`) the path will resolve relative to the directory that `index.js` is located in. I think. I haven't actually tested this out.
   * If you don't specify a filepath, your videos will be saved in the directory where `index.js` is located under the subdirectory `videos`.
 
-If you use the Vimeo API to upload, you might have some videos that are corrupted (and you haven't deleted them yet because you have better things to do than navigate to vimeo.com). Corruption can happen either during the transcoding process or in the upload process or perhaps when __someone tries to upload a fucking PDF as a video__.
+If you use the Vimeo API to upload, you might have some videos that are corrupted (and you haven't deleted them yet because you have better things to do than navigate to vimeo.com). Corruption can happen either during the transcoding process or in the upload process or perhaps when __someone tries to upload a PDF as a video__.
 
 ![web development was a mistake.jpeg_large](./assets/pdf.jpg)
 
